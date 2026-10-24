@@ -8,18 +8,18 @@
    ============================================================ */
 
 :root {
-  /* Brand violet scale (anchored on logo #8060C0) */
-  --brand-50: #f6f3fc;
-  --brand-100: #ece6f9;
-  --brand-200: #d7cbf2;
-  --brand-300: #bba6e7;
-  --brand-400: #9e80d9;
-  --brand-500: #845fc9;
-  --brand-600: #6e45b5;
-  --brand-700: #5a3896;
-  --brand-800: #4a2f7a;
-  --brand-900: #3d2862;
-  --brand-950: #271842;
+  /* Brand violet scale — lightened, airier lavender (anchored on logo #8060C0) */
+  --brand-50: #f9f6fe;
+  --brand-100: #f1ecfc;
+  --brand-200: #e4d9f8;
+  --brand-300: #d0bdf1;
+  --brand-400: #b89ce8;
+  --brand-500: #a37edd;
+  --brand-600: #8257cf; /* primary action — white text passes WCAG AA (≈5:1) */
+  --brand-700: #6c42b4;
+  --brand-800: #573490;
+  --brand-900: #46296f;
+  --brand-950: #2d1a4a;
 
   /* Water / cyan accent (freshness) */
   --water-100: #e2f7fb;

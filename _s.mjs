@@ -1,0 +1,11 @@
+import { chromium } from 'playwright-core';
+const b = await chromium.launch({ executablePath: process.env.PW_CHROME, args:['--no-sandbox'] });
+const c = await b.newContext({ viewport:{width:1440,height:860}, reducedMotion:'reduce' });
+const p = await c.newPage();
+await p.goto('http://localhost:3000/', { waitUntil:'networkidle' });
+await p.waitForTimeout(500);
+await p.screenshot({ path:'/tmp/shots/hero-light.png' });
+await p.evaluate(()=>window.scrollTo(0, document.body.scrollHeight*0.44));
+await p.waitForTimeout(400);
+await p.screenshot({ path:'/tmp/shots/recurring-light.png' });
+await b.close(); console.log('ok');
