@@ -1,0 +1,324 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+/* ============================================================
+   Weylin Cleaning Services — Design Tokens
+   Palette derived from the logo (brand violet ~#8060C0) +
+   a fresh "water" cyan accent and soft lavender-tinted neutrals.
+   ============================================================ */
+
+:root {
+  /* Brand violet scale (anchored on logo #8060C0) */
+  --brand-50: #f6f3fc;
+  --brand-100: #ece6f9;
+  --brand-200: #d7cbf2;
+  --brand-300: #bba6e7;
+  --brand-400: #9e80d9;
+  --brand-500: #845fc9;
+  --brand-600: #6e45b5;
+  --brand-700: #5a3896;
+  --brand-800: #4a2f7a;
+  --brand-900: #3d2862;
+  --brand-950: #271842;
+
+  /* Water / cyan accent (freshness) */
+  --water-100: #e2f7fb;
+  --water-200: #bfeef5;
+  --water-300: #8fe0ee;
+  --water-400: #52c7de;
+  --water-500: #22abc6;
+  --water-600: #15889f;
+  --water-700: #166b7e;
+
+  /* Fresh neutrals (subtle violet tint) */
+  --surface: #ffffff;
+  --surface-soft: #faf8fe;
+  --surface-muted: #f3f0fa;
+  --ink: #221b33;
+  --ink-soft: #5e566e;
+  --line: #e7e1f2;
+  --line-strong: #d6cee8;
+
+  /* -------- shadcn semantic tokens (light) -------- */
+  --background: var(--surface);
+  --foreground: var(--ink);
+
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+
+  --primary: var(--brand-600);
+  --primary-foreground: #ffffff;
+
+  --secondary: var(--surface-muted);
+  --secondary-foreground: var(--brand-800);
+
+  --muted: var(--surface-muted);
+  --muted-foreground: var(--ink-soft);
+
+  --accent: var(--water-500);
+  --accent-foreground: #ffffff;
+
+  --destructive: #d14343;
+  --destructive-foreground: #ffffff;
+
+  --border: var(--line);
+  --input: var(--line-strong);
+  --ring: var(--brand-400);
+
+  --radius: 0.9rem;
+
+  /* Elevation */
+  --shadow-color: 262 40% 30%;
+  --shadow-xs: 0 1px 2px -1px hsl(var(--shadow-color) / 0.08);
+  --shadow-sm: 0 2px 8px -2px hsl(var(--shadow-color) / 0.1);
+  --shadow-md: 0 10px 30px -12px hsl(var(--shadow-color) / 0.18);
+  --shadow-lg: 0 24px 60px -20px hsl(var(--shadow-color) / 0.22);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand + water ramps exposed as utilities (bg-brand-600, text-water-500, …) */
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+  --color-brand-950: var(--brand-950);
+  --color-water-100: var(--water-100);
+  --color-water-200: var(--water-200);
+  --color-water-300: var(--water-300);
+  --color-water-400: var(--water-400);
+  --color-water-500: var(--water-500);
+  --color-water-600: var(--water-600);
+  --color-water-700: var(--water-700);
+  --color-surface: var(--surface);
+  --color-surface-soft: var(--surface-soft);
+  --color-surface-muted: var(--surface-muted);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+
+  --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+
+  --radius-sm: calc(var(--radius) - 0.4rem);
+  --radius-md: calc(var(--radius) - 0.2rem);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 0.4rem);
+  --radius-2xl: calc(var(--radius) + 1rem);
+
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+
+  --animate-accordion-down: accordion-down 0.3s ease-out;
+  --animate-accordion-up: accordion-up 0.25s ease-out;
+  --animate-marquee: marquee 38s linear infinite;
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv05", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+
+  ::selection {
+    background-color: var(--brand-200);
+    color: var(--brand-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand-500);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+/* ------------- Reusable brand utilities ------------- */
+@layer utilities {
+  .container-px {
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 1024px) {
+    .container-px {
+      padding-inline: 2rem;
+    }
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Soft fresh background wash */
+  .bg-aurora {
+    background:
+      radial-gradient(60% 55% at 15% 0%, var(--brand-100) 0%, transparent 60%),
+      radial-gradient(55% 50% at 100% 10%, var(--water-100) 0%, transparent 55%),
+      var(--surface);
+  }
+
+  .bg-brand-wash {
+    background:
+      radial-gradient(80% 120% at 100% 0%, color-mix(in oklab, var(--water-500) 18%, transparent) 0%, transparent 55%),
+      linear-gradient(160deg, var(--brand-700) 0%, var(--brand-900) 100%);
+  }
+
+  /* Hairline shimmer used for "fresh/clean" accents */
+  .ring-line {
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+}
+
+/* Legal document prose */
+@layer components {
+  .legal-prose {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+  .legal-prose h2 {
+    font-family: var(--font-sans);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-top: 2.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .legal-prose h3 {
+    font-family: var(--font-sans);
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .legal-prose p {
+    margin-bottom: 1rem;
+  }
+  .legal-prose ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  .legal-prose li {
+    margin-bottom: 0.4rem;
+  }
+  .legal-prose a {
+    color: var(--brand-700);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .legal-prose strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+}
+
+/* Reveal-on-scroll base state (progressively enhanced by GSAP) */
+@layer utilities {
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    will-change: transform, opacity;
+  }
+  .reveal-ready [data-reveal] {
+    opacity: 0;
+  }
+  /* If JS/anim disabled, ensure content is visible */
+  .no-anim [data-reveal],
+  .reveal-done [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
