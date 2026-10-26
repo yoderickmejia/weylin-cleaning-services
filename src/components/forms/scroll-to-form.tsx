@@ -1,10 +1,13 @@
 "use client";
 
-import { useIsomorphicLayoutEffect } from "@/lib/use-isomorphic-layout-effect";
+import { useEffect } from "react";
+import { getLenis } from "@/lib/lenis-store";
 
 /**
  * Lands the visitor directly on the quote form when the page opens, on every
- * screen size. Skips if the URL already targets a specific section (#hash).
+ * screen size — including client-side navigations (where Next resets scroll to
+ * top) and when Lenis smooth-scroll is active on real devices. Skips if the URL
+ * already targets a specific section (#hash).
  */
 export function ScrollToForm({
   targetId,
@@ -13,16 +16,39 @@ export function ScrollToForm({
   targetId: string;
   offset?: number;
 }) {
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     if (typeof window === "undefined") return;
     if (window.location.hash) return;
 
-    const el = document.getElementById(targetId);
-    if (!el) return;
+    let cancelled = false;
 
-    const y = el.getBoundingClientRect().top + window.scrollY - offset;
-    // Instant (no animation) so the page simply opens at the form.
-    window.scrollTo({ top: y, behavior: "auto" });
+    const run = () => {
+      if (cancelled) return;
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      const lenis = getLenis();
+      if (lenis) {
+        // Drive it through Lenis so it isn't overridden by the smooth-scroll loop.
+        lenis.scrollTo(el, { offset: -offset, immediate: true, force: true });
+      } else {
+        const y = el.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: y, behavior: "auto" });
+      }
+    };
+
+    // Run after Next's post-navigation scroll reset, then again to absorb
+    // late layout shifts (web fonts) and Lenis initialization timing.
+    const raf = requestAnimationFrame(() => requestAnimationFrame(run));
+    const timers = [
+      window.setTimeout(run, 120),
+      window.setTimeout(run, 400),
+    ];
+
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(raf);
+      timers.forEach(clearTimeout);
+    };
   }, [targetId, offset]);
 
   return null;

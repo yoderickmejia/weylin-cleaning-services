@@ -1,0 +1,79 @@
+# Production stack for EC2 (t3.micro, Ubuntu 24.04) behind Caddy + HTTPS.
+# The web image is built OUTSIDE the server and pulled from a registry.
+#   docker compose -f docker-compose.prod.yml up -d
+#
+# Required files in the same directory: Caddyfile, .env
+# Set WEB_IMAGE in .env (e.g. ghcr.io/<owner>/weylin-cleaning-services:latest).
+
+services:
+  web:
+    image: ${WEB_IMAGE:-ghcr.io/OWNER/weylin-cleaning-services:latest}
+    container_name: spotlyn-web
+    # expose (not ports): reachable only inside the Docker network, never from the internet.
+    expose:
+      - "3000"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+    restart: unless-stopped
+    networks:
+      - appnet
+    # Keep the app comfortably within a 1 GB box (standalone Next runtime is light).
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+        reservations:
+          memory: 192m
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      start_period: 25s
+      retries: 3
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: spotlyn-caddy
+    restart: unless-stopped
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp" # HTTP/3 (QUIC)
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data # certificates & ACME state — MUST persist
+      - caddy_config:/config
+    networks:
+      - appnet
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  appnet:
+    driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:

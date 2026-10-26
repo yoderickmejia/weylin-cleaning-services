@@ -1,10 +1,14 @@
 node_modules
 .next
 .git
+.github
 .gitignore
 Dockerfile
 .dockerignore
 docker-compose.yml
+docker-compose.prod.yml
+Caddyfile
+DEPLOY.md
 npm-debug.log*
 README.md
 docs

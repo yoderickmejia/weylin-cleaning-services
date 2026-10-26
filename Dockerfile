@@ -13,6 +13,10 @@ RUN npm ci --legacy-peer-deps
 # ---------- Builder ----------
 FROM base AS builder
 ENV NEXT_TELEMETRY_DISABLED=1
+# Public site URL is inlined at build time (NEXT_PUBLIC_*). Pass via --build-arg;
+# empty falls back to the default in src/lib/site.ts.
+ARG NEXT_PUBLIC_SITE_URL=""
+ENV NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build

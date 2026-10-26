@@ -1,0 +1,31 @@
+# Caddy reverse proxy with automatic HTTPS (Let's Encrypt).
+# Certificates persist in the caddy_data named volume.
+
+spotlyncleaning.com {
+	# Gzip + Zstd compression
+	encode zstd gzip
+
+	# Security headers
+	header {
+		# HSTS — force HTTPS for 1 year (incl. subdomains, preload-ready)
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		X-Frame-Options "SAMEORIGIN"
+		# Hide the Server header
+		-Server
+	}
+
+	# Proxy to the Next.js app on the internal Docker network
+	reverse_proxy web:3000
+
+	# Access logs to stdout (captured by Docker)
+	log {
+		output stdout
+	}
+}
+
+# Redirect www -> apex (301)
+www.spotlyncleaning.com {
+	redir https://spotlyncleaning.com{uri} permanent
+}
