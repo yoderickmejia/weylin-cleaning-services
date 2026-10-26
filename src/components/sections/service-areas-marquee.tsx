@@ -34,7 +34,7 @@ export function ServiceAreasMarquee() {
             "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
         }}
       >
-        <ul className="flex shrink-0 animate-marquee items-center gap-4 pr-4 motion-reduce:animate-none group-hover:[animation-play-state:paused]">
+        <ul className="flex shrink-0 animate-marquee items-center gap-4 pr-4 group-hover:[animation-play-state:paused]">
           {row.map((city, i) => (
             <li key={`${city}-${i}`}>
               <Link

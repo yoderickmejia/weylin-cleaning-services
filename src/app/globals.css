@@ -322,3 +322,12 @@
     transform: none !important;
   }
 }
+
+/* The service-areas marquee is a gentle, slow, hover-pausable ticker — keep it
+   running even when reduced motion is preferred, so it shows on every device. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation-duration: 38s !important;
+    animation-iteration-count: infinite !important;
+  }
+}

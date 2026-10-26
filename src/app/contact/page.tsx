@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/sections/page-header";
 import { Container } from "@/components/ui/section";
 import { Reveal } from "@/components/reveal";
 import { QuoteForm } from "@/components/forms/quote-form";
-import { ScrollToFormOnMobile } from "@/components/forms/scroll-to-form";
+import { ScrollToForm } from "@/components/forms/scroll-to-form";
 import { InstagramIcon } from "@/components/icons/instagram";
 import { HowItWorks } from "@/components/sections/how-it-works";
 import { site, serviceAreas } from "@/lib/site";
@@ -50,7 +50,7 @@ const reasons = [
 export default function ContactPage() {
   return (
     <>
-      <ScrollToFormOnMobile targetId="quote-form" />
+      <ScrollToForm targetId="quote-form" />
       <PageHeader
         eyebrow="Contact / Get a quote"
         breadcrumb="Contact"
