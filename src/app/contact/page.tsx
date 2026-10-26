@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/sections/page-header";
 import { Container } from "@/components/ui/section";
 import { Reveal } from "@/components/reveal";
 import { QuoteForm } from "@/components/forms/quote-form";
+import { ScrollToFormOnMobile } from "@/components/forms/scroll-to-form";
 import { InstagramIcon } from "@/components/icons/instagram";
 import { HowItWorks } from "@/components/sections/how-it-works";
 import { site, serviceAreas } from "@/lib/site";
@@ -49,6 +50,7 @@ const reasons = [
 export default function ContactPage() {
   return (
     <>
+      <ScrollToFormOnMobile targetId="quote-form" />
       <PageHeader
         eyebrow="Contact / Get a quote"
         breadcrumb="Contact"
@@ -121,7 +123,10 @@ export default function ContactPage() {
 
             {/* Right: form */}
             <Reveal>
-              <div className="rounded-3xl border border-line bg-surface p-6 shadow-sm sm:p-8">
+              <div
+                id="quote-form"
+                className="scroll-mt-24 rounded-3xl border border-line bg-surface p-6 shadow-sm sm:p-8"
+              >
                 <h2 className="text-2xl font-semibold text-ink">Get a free quote</h2>
                 <p className="mt-1.5 text-sm text-ink-soft">
                   Fields marked <span className="text-destructive">*</span> are required. Takes about a minute.

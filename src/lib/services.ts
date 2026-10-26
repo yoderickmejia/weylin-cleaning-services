@@ -118,6 +118,7 @@ export const services: Service[] = [
     ],
     bestFor: "Homeowners, contractors, and builders after a project wraps.",
     icon: HardHat,
+    image: { src: "/images/service-postconstruction", alt: "A bright, freshly finished open-plan home ready to move in" },
   },
   {
     slug: "airbnb-short-term",
@@ -136,6 +137,7 @@ export const services: Service[] = [
     ],
     bestFor: "Airbnb, VRBO, and short-term rental hosts across North Jersey.",
     icon: KeyRound,
+    image: { src: "/images/service-airbnb", alt: "A cozy, guest-ready staged living room for a short-term rental" },
   },
   {
     slug: "commercial-cleaning",
@@ -154,6 +156,7 @@ export const services: Service[] = [
     ],
     bestFor: "Small businesses and offices that want to impress clients and staff.",
     icon: Building2,
+    image: { src: "/images/service-commercial", alt: "A clean, orderly, well-kept interior space" },
   },
 ];
 

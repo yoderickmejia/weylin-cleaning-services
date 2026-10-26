@@ -46,8 +46,15 @@ Fuente: 5 fotos reales de la carpeta (procesadas a WebP+AVIF en `public/images/`
 | (3) baño | `bathroom` | Deep Cleaning, Instagram grid |
 | (5) sala cálida | `living-room-cozy` | corregida (balance de blancos) — reserva/secundaria |
 | (6) logo | `logo.png` (fondo transparente), `logo-512`, favicon, apple-icon, `og.png` | Header, footer, favicon, OG |
+| **Nuevas (25-oct)** open-plan | `service-postconstruction` | Post-Construction Cleaning |
+| **Nuevas (25-oct)** sala tan | `service-airbnb` | Airbnb & Short-Term Rental |
+| **Nuevas (25-oct)** seccional | `service-commercial` | Commercial Cleaning |
 
-**Secciones que se beneficiarían de más fotos reales:** cocina, move-in/out real, post-construcción, Airbnb, equipo trabajando, y **antes/después** (para activar un slider). Esas secciones hoy usan tarjetas con gradiente de marca + íconos (sin repetir fotos de forma evidente).
+Con las 3 fotos nuevas, **los 7 servicios ya tienen foto real** (se eliminaron las tarjetas de gradiente en Services). Mapeo sugerido — se puede intercambiar si prefieres otra asignación.
+
+**Secciones que aún se beneficiarían de más fotos reales:** cocina en detalle, equipo trabajando, y **antes/después** (para activar un slider arrastrable).
+
+**Ajustes móviles (25-oct):** el hero oculta su foto en teléfono (solo texto + CTAs, carga más rápida); la página Contact en móvil abre directamente en el formulario.
 
 ## 7. Testimonios
 **No se fabricaron reseñas reales.** A pedido del cliente ("para aprobar el diseño, luego se cambian por reales") se incluyeron **3 tarjetas claramente marcadas como SAMPLE** con avatares de monograma (iniciales, sin caras inventadas) en `src/lib/testimonials.ts`. Antes de publicar: sustituir por reseñas verificables **o** poner `TESTIMONIALS_ENABLED = false`. Motivo documentado: la FTC (16 CFR Part 465) prohíbe reseñas falsas presentadas como reales.

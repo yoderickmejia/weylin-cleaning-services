@@ -116,8 +116,8 @@ export function Hero() {
           </ul>
         </div>
 
-        {/* Media */}
-        <div className="relative lg:pl-6">
+        {/* Media — hidden on phones (text-first hero on mobile) */}
+        <div className="relative hidden lg:block lg:pl-6">
           <div
             data-hero-media
             className="relative overflow-hidden rounded-[2rem] shadow-lg ring-1 ring-brand-100"
@@ -127,8 +127,7 @@ export function Hero() {
               alt="A bright, freshly cleaned bedroom by Weylin Cleaning Services in North Jersey"
               width={1100}
               height={1340}
-              priority
-              sizes="(max-width: 1024px) 100vw, 46vw"
+              sizes="46vw"
               className="h-full w-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-950/30 via-transparent to-transparent" />
