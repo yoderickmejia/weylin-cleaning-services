@@ -38,6 +38,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# stray browser/lighthouse profile caches accidentally created in repo
+lighthouse.*
+C:\\*
+*AppData*
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
