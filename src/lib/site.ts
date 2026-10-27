@@ -11,7 +11,7 @@ export const site = {
   state: "New Jersey",
   stateAbbr: "NJ",
   // Update to the real production domain before launch (or set NEXT_PUBLIC_SITE_URL).
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.weylincleaningservices.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://wylcleaning.com",
   description:
     "Weylin Cleaning Services LLC provides reliable residential and commercial cleaning across North Jersey — standard, deep, recurring, move-in/out, and more. Trusted, local, and detail-obsessed.",
   phone: {

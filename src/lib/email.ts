@@ -1,4 +1,4 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import { site } from "@/lib/site";
 
 type SendArgs = {
@@ -9,46 +9,49 @@ type SendArgs = {
 };
 
 /**
- * Sends an email via Resend when RESEND_API_KEY is configured.
- * Otherwise falls back to "log mode": the submission is logged to the server
- * console so nothing is lost while an email provider is being set up.
+ * Sends an email via SMTP (Google Workspace / Gmail) when SMTP_USER and
+ * SMTP_PASS are configured. Otherwise falls back to "log mode": the submission
+ * is logged to the server console so nothing is lost while SMTP is set up.
  *
  * Env vars (see .env.example):
- *   RESEND_API_KEY   — Resend API key (enables real sending)
- *   EMAIL_FROM       — verified sender, e.g. "Weylin <quotes@weylincleaningservices.com>"
- *   EMAIL_TO         — destination inbox (defaults to the business Gmail)
+ *   SMTP_USER   — the Workspace mailbox that sends, e.g. "info@wylcleaning.com"
+ *   SMTP_PASS   — a Google "App Password" (16 chars) for that mailbox
+ *   SMTP_HOST   — SMTP server (defaults to smtp.gmail.com)
+ *   SMTP_PORT   — SMTP port (defaults to 465, SSL)
+ *   EMAIL_FROM  — display sender, e.g. "Wyl Cleaning <info@wylcleaning.com>"
+ *                 (defaults to SMTP_USER). Must be the Workspace address/alias.
+ *   EMAIL_TO    — destination inbox for leads (defaults to the business email)
  */
 export async function sendLeadEmail({ subject, html, text, replyTo }: SendArgs) {
-  const apiKey = process.env.RESEND_API_KEY;
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
   const to = process.env.EMAIL_TO || site.email.address;
-  const from = process.env.EMAIL_FROM || "Weylin Website <onboarding@resend.dev>";
+  const from = process.env.EMAIL_FROM || user || site.email.address;
 
-  if (!apiKey) {
+  if (!user || !pass) {
     console.info(
-      "\n[lead:log-mode] No RESEND_API_KEY set — logging submission instead of emailing.\n" +
+      "\n[lead:log-mode] No SMTP_USER/SMTP_PASS set — logging submission instead of emailing.\n" +
         `  → To: ${to}\n  → Subject: ${subject}\n${text}\n`,
     );
     return { ok: true as const, mode: "log" as const };
   }
 
+  const host = process.env.SMTP_HOST || "smtp.gmail.com";
+  const port = Number(process.env.SMTP_PORT) || 465;
+
   try {
-    const resend = new Resend(apiKey);
-    const { error } = await resend.emails.send({
-      from,
-      to,
-      replyTo,
-      subject,
-      html,
-      text,
+    const transport = nodemailer.createTransport({
+      host,
+      port,
+      secure: port === 465, // true for 465 (SSL), false for 587 (STARTTLS)
+      auth: { user, pass },
     });
-    if (error) {
-      console.error("[lead:resend-error]", error);
-      return { ok: false as const, mode: "resend" as const, error: error.message };
-    }
-    return { ok: true as const, mode: "resend" as const };
+
+    await transport.sendMail({ from, to, replyTo, subject, html, text });
+    return { ok: true as const, mode: "smtp" as const };
   } catch (err) {
-    console.error("[lead:resend-exception]", err);
-    return { ok: false as const, mode: "resend" as const, error: "send_failed" };
+    console.error("[lead:smtp-exception]", err);
+    return { ok: false as const, mode: "smtp" as const, error: "send_failed" };
   }
 }
 

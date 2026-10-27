@@ -8,7 +8,7 @@
 services:
   web:
     image: ${WEB_IMAGE:-ghcr.io/OWNER/weylin-cleaning-services:latest}
-    container_name: spotlyn-web
+    container_name: wyl-web
     # expose (not ports): reachable only inside the Docker network, never from the internet.
     expose:
       - "3000"
@@ -46,7 +46,7 @@ services:
 
   caddy:
     image: caddy:2-alpine
-    container_name: spotlyn-caddy
+    container_name: wyl-caddy
     restart: unless-stopped
     depends_on:
       - web

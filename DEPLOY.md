@@ -7,7 +7,7 @@ Next.js app:
 Internet ──▶ Caddy (80/443, auto HTTPS) ──▶ web (Next.js :3000, internal only)
 ```
 
-- Domain: **spotlyncleaning.com** (DNS at Cloudflare)
+- Domain: **wylcleaning.com** (DNS at Cloudflare)
 - Server: **EC2 t3.micro**, Ubuntu 24.04, x86_64, 1 GB RAM + **2 GB swap**
 - The image is **built off-server** (1 GB RAM is not enough for `next build`) and pulled from **ghcr.io**.
 
@@ -23,7 +23,7 @@ Pushing to `main` (or tagging `vX.Y.Z`) triggers `.github/workflows/ghcr-publish
 
 - Tags produced: `latest` (on `main`), `sha-<commit>`, branch name, and `X.Y.Z` / `X.Y` on version tags.
 - Optional: set repo **variable** `NEXT_PUBLIC_SITE_URL` (Settings → Secrets and variables → Actions →
-  Variables) to override the baked site URL. Defaults to `https://spotlyncleaning.com`.
+  Variables) to override the baked site URL. Defaults to `https://wylcleaning.com`.
 - After the first run, open the package in GitHub → **Package settings** and set visibility to **Public**
   (so the server can pull without logging in), or keep it **Private** and `docker login ghcr.io` on the server.
 
@@ -38,12 +38,12 @@ export CR_PAT=ghp_xxxxxxxxxxxxxxxxxxxx
 echo "$CR_PAT" | docker login ghcr.io -u <github-username> --password-stdin
 
 # One-time: a buildx builder
-docker buildx create --use --name spotlyn 2>/dev/null || docker buildx use spotlyn
+docker buildx create --use --name wyl 2>/dev/null || docker buildx use wyl
 
 # Build for linux/amd64 and push (owner MUST be lowercase)
 docker buildx build \
   --platform linux/amd64 \
-  --build-arg NEXT_PUBLIC_SITE_URL=https://spotlyncleaning.com \
+  --build-arg NEXT_PUBLIC_SITE_URL=https://wylcleaning.com \
   -t ghcr.io/<owner>/weylin-cleaning-services:latest \
   -t ghcr.io/<owner>/weylin-cleaning-services:"$(git rev-parse --short HEAD)" \
   --push .
@@ -100,26 +100,26 @@ echo "$CR_PAT" | docker login ghcr.io -u <github-username> --password-stdin
 ### 2.5 Copy the deploy files and create `.env`
 From your machine:
 ```bash
-scp docker-compose.prod.yml Caddyfile ubuntu@<ELASTIC_IP>:~/spotlyn/
+scp docker-compose.prod.yml Caddyfile ubuntu@<ELASTIC_IP>:~/wyl/
 ```
 On the server:
 ```bash
-mkdir -p ~/spotlyn && cd ~/spotlyn
+mkdir -p ~/wyl && cd ~/wyl
 cp .env.example .env   # if you copied it, otherwise create it
 nano .env
 ```
 Set in `.env`:
 ```
-NEXT_PUBLIC_SITE_URL=https://spotlyncleaning.com
+NEXT_PUBLIC_SITE_URL=https://wylcleaning.com
 WEB_IMAGE=ghcr.io/<owner>/weylin-cleaning-services:latest
 RESEND_API_KEY=...        # your Resend key (leave empty = log mode, no emails)
-EMAIL_FROM=Spotlyn Cleaning <no-reply@spotlyncleaning.com>
+EMAIL_FROM=Spotlyn Cleaning <no-reply@wylcleaning.com>
 EMAIL_TO=you@yourbusiness.com
 ```
 
 ### 2.6 Start it
 ```bash
-cd ~/spotlyn
+cd ~/wyl
 docker compose -f docker-compose.prod.yml pull
 docker compose -f docker-compose.prod.yml up -d
 docker compose -f docker-compose.prod.yml ps
@@ -149,7 +149,7 @@ docker compose -f docker-compose.prod.yml logs -f caddy   # watch certificate is
 
 After pushing a new image (step 1) with the same `:latest` tag:
 ```bash
-cd ~/spotlyn
+cd ~/wyl
 docker compose -f docker-compose.prod.yml pull
 docker compose -f docker-compose.prod.yml up -d
 docker image prune -f        # remove dangling old images

@@ -14,6 +14,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { Combobox } from "@/components/ui/combobox";
 import { Field } from "@/components/forms/field";
 import {
   ConsentCheckbox,
@@ -124,17 +125,19 @@ export function QuoteForm() {
             control={control}
             name="city"
             render={({ field }) => (
-              <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger id="city" aria-invalid={!!errors.city}>
-                  <SelectValue placeholder="Select your city" />
-                </SelectTrigger>
-                <SelectContent>
-                  {serviceAreas.map((c) => (
-                    <SelectItem key={c} value={c}>{c}, NJ</SelectItem>
-                  ))}
-                  <SelectItem value="Other">Other / nearby</SelectItem>
-                </SelectContent>
-              </Select>
+              <Combobox
+                id="city"
+                invalid={!!errors.city}
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="Select your city"
+                searchPlaceholder="Type your city…"
+                emptyText="No matching city."
+                options={[
+                  ...serviceAreas.map((c) => ({ value: c, label: `${c}, NJ` })),
+                  { value: "Other", label: "Other / nearby" },
+                ]}
+              />
             )}
           />
         </Field>

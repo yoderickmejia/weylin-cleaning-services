@@ -176,6 +176,9 @@
   html {
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
+    /* Always reserve the scrollbar's space so Radix (Select/Sheet) scroll-lock
+       can't remove it and shift the whole page sideways when a dropdown opens. */
+    scrollbar-gutter: stable;
   }
 
   body {
@@ -185,6 +188,14 @@
     font-feature-settings: "cv05", "ss01";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* When Radix (Select/Sheet) locks scroll it adds a compensating padding via
+     react-remove-scroll. The scrollbar-gutter above already reserves the space,
+     so cancel that padding to avoid a sideways jump when a dropdown opens. */
+  body[data-scroll-locked] {
+    padding-right: 0 !important;
+    margin-right: 0 !important;
   }
 
   h1, h2, h3, h4 {

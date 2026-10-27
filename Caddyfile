@@ -1,7 +1,7 @@
 # Caddy reverse proxy with automatic HTTPS (Let's Encrypt).
 # Certificates persist in the caddy_data named volume.
 
-spotlyncleaning.com {
+wylcleaning.com {
 	# Gzip + Zstd compression
 	encode zstd gzip
 
@@ -26,6 +26,6 @@ spotlyncleaning.com {
 }
 
 # Redirect www -> apex (301)
-www.spotlyncleaning.com {
-	redir https://spotlyncleaning.com{uri} permanent
+www.wylcleaning.com {
+	redir https://wylcleaning.com{uri} permanent
 }
