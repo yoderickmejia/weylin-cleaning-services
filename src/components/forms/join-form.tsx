@@ -98,7 +98,7 @@ export function JoinForm() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Phone" htmlFor="jPhone" required error={errors.phone?.message}>
-          <Input id="jPhone" type="tel" autoComplete="tel" placeholder="(862) 900-9777" aria-invalid={!!errors.phone} {...register("phone")} />
+          <Input id="jPhone" type="tel" autoComplete="tel" placeholder="(862) 355-2863" aria-invalid={!!errors.phone} {...register("phone")} />
         </Field>
         <Field label="Email" htmlFor="jEmail" required error={errors.email?.message}>
           <Input id="jEmail" type="email" autoComplete="email" placeholder="you@email.com" aria-invalid={!!errors.email} {...register("email")} />
@@ -181,7 +181,7 @@ export function JoinForm() {
       {isSubmitted && !isSubmitSuccessful && !isSubmitting && (
         <p className="flex items-center gap-2 rounded-xl border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive" role="alert">
           <AlertCircle className="size-4 shrink-0" />
-          Something went wrong. Please try again, or call us at (862) 900-9777.
+          Something went wrong. Please try again, or call us at (862) 355-2863.
         </p>
       )}
 

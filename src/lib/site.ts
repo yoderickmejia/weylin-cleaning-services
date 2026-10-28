@@ -15,9 +15,9 @@ export const site = {
   description:
     "Weylin Cleaning Services LLC provides reliable residential and commercial cleaning across North Jersey — standard, deep, recurring, move-in/out, and more. Trusted, local, and detail-obsessed.",
   phone: {
-    display: "(862) 900-9777",
-    e164: "+18629009777",
-    href: "tel:+18629009777",
+    display: "(862) 355-2863",
+    e164: "+18623552863",
+    href: "tel:+18623552863",
   },
   email: {
     address: "info@wylcleaning.com",

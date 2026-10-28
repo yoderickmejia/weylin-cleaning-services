@@ -12,7 +12,7 @@ import { site, serviceAreas } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact Us & Get a Free Quote",
   description:
-    "Get a free cleaning quote from Weylin Cleaning Services. Call (862) 900-9777, email us, or fill out the quick quote form. Serving 13 towns across North Jersey.",
+    "Get a free cleaning quote from Weylin Cleaning Services. Call (862) 355-2863, email us, or fill out the quick quote form. Serving 13 towns across North Jersey.",
   alternates: { canonical: "/contact" },
 };
 
