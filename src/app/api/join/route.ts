@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
 import { joinSchema } from "@/lib/schemas";
 import { sendLeadEmail, row } from "@/lib/email";
+import { guardForm } from "@/lib/api-guard";
 
 export async function POST(request: Request) {
+  const blocked = guardForm(request, "join");
+  if (blocked) return blocked;
+
   let body: unknown;
   try {
     body = await request.json();

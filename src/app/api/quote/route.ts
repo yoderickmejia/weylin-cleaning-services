@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
 import { quoteSchema } from "@/lib/schemas";
 import { sendLeadEmail, row } from "@/lib/email";
+import { guardForm } from "@/lib/api-guard";
 
 export async function POST(request: Request) {
+  const blocked = guardForm(request, "quote");
+  if (blocked) return blocked;
+
   let body: unknown;
   try {
     body = await request.json();
