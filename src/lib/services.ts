@@ -52,11 +52,10 @@ export const services: Service[] = [
       "A top-to-bottom reset that reaches the places everyday cleaning misses. Ideal as a first visit or a seasonal refresh — we detail baseboards, fixtures, grout, and build-up so your whole home feels brand new.",
     includes: [
       "Everything in a Standard Cleaning",
-      "Baseboards, door frames, and trim detailed",
-      "Scrub tile grout and remove soap scum",
       "Cabinet fronts and backsplash degreased",
       "Light fixtures, vents, and switch plates wiped",
-      "Interior window sills and reachable glass",
+      "Dusting, vacuuming, mopping, cleaning bathrooms, and wiping kitchen surfaces",
+      "Baseboards, window sills, light fixtures, and behind and under furniture",
     ],
     bestFor: "First-time cleans, seasonal resets, or homes that need a little extra love.",
     icon: SprayCan,
